@@ -1,0 +1,46 @@
+.main {
+	margin: 1px;
+	background: black;
+	height: 400px;
+	color: white;
+}
+
+#col1 {
+	width: 50%;
+	height: 100px;
+	background: red;
+
+	float: left;
+}
+
+#col2 {
+	width: 30%;
+	height: 100px;
+	background: green;
+
+	float: left;
+}
+
+#col3 {
+	width: 20%;
+	height: 100px;
+	background: blue;
+
+	float: left;
+}
+
+#colb {
+	width: 20%;
+	height: 100px;
+	background: orange;
+
+	float: left;
+}
+
+#col1-test {
+	width: 20%;
+	height: 100px;
+	background: orange;
+
+	float: left;
+}
