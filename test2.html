@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html> 
+<script>
+    function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+    var videoname = getParameterByName('id')
+    var path1 = '<video width="1280" controls autoplay>'
+    var path2 = '<source src="videos/projects/havoc/guide/'+ videoname +'" type="video/mp4">'
+    var path3 = '</video>'
+    var path= path1 + path2 + path3
+
+</script>
+<body style="text-align: center;"> 
+    <h2>My First Web Page</h2>
+    <p>My First Paragraph21.</p>
+    
+    <p id="demo"></p>
+    
+    <script>
+        document.getElementById("demo").innerHTML = path ;
+        </script>
+
+
+
+
+</body> 
+  
+</html> 
+
