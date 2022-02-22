@@ -1,16 +1,14 @@
 <!DOCTYPE html> 
 <html> 
-<script>
-    function getParameterByName(name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-var videoname = 'guide_GOL_101_019_010'
-var path1 = '<video width="400" controls autoplay>'
-var path2 = '<source src="videos/projects/havoc/guide/"'+ videoname +'.mp4"" type="video/mp4">'
-var path3 = '</video>'
-var path= path1 + path2 + path3
-</script>
+    <script>
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: 'YOUR_GOOGLE_CLIENT_ID',
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.prompt();
+        };
+      </script>
 <body style="text-align: center;"> 
     <h2>My First Web Page</h2>
     <p>My First Paragraph.</p>
