@@ -7,10 +7,11 @@
     }
     var id = getParameterByName('id')
     var project = getParameterByName('project')
-    var path1 = '<video width="1280" controls autoplay>'
-    var path2 = '<source src="videos/projects/havoc/guide/640/'+ id +'.mp4" type="video/mp4">'
+    var path1 = '<video width="1600" controls autoplay>'
+    var path2 = '<source src="/projects/havoc/guide/640/'+ id +'.mp4" type="video/mp4">'
     var path3 = '</video>'
     var path= path1 + path2 + path3
+    var turnoverdoc = '<a href = "/projects/havoc/turnover_doc/' + id + '.pdf" target="_blank" >' + id+'</a>'
 
 </script>
 <body style="text-align: center;"> 
@@ -22,7 +23,7 @@
     
     <script>
         document.getElementById("project").innerHTML = project ;
-        document.getElementById("id").innerHTML = id ;
+        document.getElementById("id").innerHTML = turnoverdoc ;
         document.getElementById("video").innerHTML = path ;
         </script>
 
