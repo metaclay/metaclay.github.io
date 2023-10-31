@@ -8,10 +8,10 @@
     var id = getParameterByName('id')
     var project = getParameterByName('project')
     var path1 = '<video width="1280" controls autoplay>'
-    var path2 = '<source src="/projects/havoc/ref/640/'+ id +'.mp4" type="video/mp4">'
+    var path2 = '<source src="/projects/'+ project +'/ref/640/'+ id +'.mp4" type="video/mp4">'
     var path3 = '</video>'
     var path= path1 + path2 + path3
-    var turnoverdoc = '<a href = "/projects/havoc/turnover_doc/' + id + '.pdf" target="_blank" >' + id+'</a>'
+    var turnoverdoc = '<a href = "/projects/'+ project +'/turnover_doc/' + id + '.pdf" target="_blank" >' + id+'</a>'
 
 </script>
 <body style="text-align: center;"> 
