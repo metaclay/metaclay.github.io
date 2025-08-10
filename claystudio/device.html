@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  h2 {
+    margin-bottom: 5px;
+  }
+  #gallery img {
+    margin: 5px;
+    max-width: 90%;
+    height: auto;
+  }
+</style>
+</head>
 <body>
+
+<h2>CLAYSTUDIO</h2>
+<h3 id="title"></h3>
 <div id="gallery"></div>
-  <h2 >CLAYSTUDIO</h2>
-  <h3 >DEVICE</h3>
 
 <script>
 // Get URL parameters
 const params = new URLSearchParams(window.location.search);
-const prefix = params.get("id") || "photo"; // default if no 'id'
-const path = params.get("path") || "/claystudio/images/device/"; // default path
+const prefix = params.get("id") || "test"; // default if no 'id'
+const path = params.get("path") || "/images/internal/device/"; // default path
+
+// Show the ID in the header
+document.getElementById('title').textContent = prefix.toUpperCase();
 
 // Set how many images to try loading
 const maxImages = 10;
@@ -24,7 +44,6 @@ for (let i = 1; i <= maxImages; i++) {
   gallery.appendChild(img);
 }
 </script>
-
 
 </body>
 </html>
