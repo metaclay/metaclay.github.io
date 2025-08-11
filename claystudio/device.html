@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>CLAYSTUDIO Device Viewer</title>
 <style>
   body {
     text-align: center;
@@ -20,27 +22,41 @@
 
 <h2>CLAYSTUDIO</h2>
 <h3 id="title"></h3>
+<p>
+  
+  <a id="invValue" href="#" target="_blank"></a>
+</p>
+
 <div id="gallery"></div>
 
 <script>
 // Get URL parameters
 const params = new URLSearchParams(window.location.search);
-const prefix = params.get("id") || "test"; // default if no 'id'
-const path = params.get("path") || "/images/internal/device/"; // default path
+const id = params.get("id") || "test"; // default ID
+const path = params.get("path") || "/claystudio/images/device/"; // default path
 
-// Show the ID in the header
-document.getElementById('title').textContent = prefix.toUpperCase() + "test";
+// Generate inv from id
+let inv = id.slice(0, -4).replace("CLDV", "INV");
+let inv2 = "images/invoice/"+ inv +".jpg";
 
-// Set how many images to try loading
+// Show ID in the header
+document.getElementById('title').textContent = id.toUpperCase();
+
+// Show INV value
+const linkElement = document.getElementById('invValue');
+linkElement.href = inv2;
+linkElement.textContent = `( invoice : ${inv} )`;
+
+// Number of images to try loading
 const maxImages = 10;
-
 const gallery = document.getElementById('gallery');
 
+// Loop through and add images
 for (let i = 1; i <= maxImages; i++) {
-  const number = String(i).padStart(2, '0'); // 01, 02, ...
+  const number = String(i).padStart(2, '0'); // 01, 02...
   const img = document.createElement('img');
-  img.src = `${path}${prefix}_img${number}.jpg`;
-  img.onerror = () => img.remove(); // hide if not found
+  img.src = `${path}${id}_img${number}.jpg`;
+  img.onerror = () => img.remove(); // hide if missing
   gallery.appendChild(img);
 }
 </script>
