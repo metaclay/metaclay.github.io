@@ -34,13 +34,14 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "test"; // default ID
 const path = params.get("path") || "/claystudio/images/device/"; // default path
+const item = params.get("item") 
 
 // Generate inv from id
 let inv = id.slice(0, -4).replace("CLDV", "INV");
 let inv2 = "images/invoice/"+ inv +".jpg";
 
 // Show ID in the header
-document.getElementById('title').textContent = id.toUpperCase();
+document.getElementById('title').textContent = id.toUpperCase() + " - " + item.toUpperCase();
 
 // Show INV value
 const linkElement = document.getElementById('invValue');
