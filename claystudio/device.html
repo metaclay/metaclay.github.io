@@ -29,7 +29,7 @@ const prefix = params.get("id") || "test"; // default if no 'id'
 const path = params.get("path") || "/images/internal/device/"; // default path
 
 // Show the ID in the header
-document.getElementById('title').textContent = prefix.toUpperCase();
+document.getElementById('title').textContent = prefix.toUpperCase() + "test";
 
 // Set how many images to try loading
 const maxImages = 10;
