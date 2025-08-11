@@ -39,7 +39,7 @@ const gallery = document.getElementById('gallery');
 for (let i = 1; i <= maxImages; i++) {
   const number = String(i).padStart(2, '0'); // 01, 02, ...
   const img = document.createElement('img');
-  img.src = `${path}${prefix}_img${number}.png`;
+  img.src = `${path}${prefix}_img${number}.jpg`;
   img.onerror = () => img.remove(); // hide if not found
   gallery.appendChild(img);
 }
