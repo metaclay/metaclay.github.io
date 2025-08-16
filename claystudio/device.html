@@ -37,7 +37,7 @@ const path = params.get("path") || "/claystudio/images/device/"; // default path
 const item = params.get("item") 
 
 // Generate inv from id
-let inv = id.slice(0, -4).replace("CLDV", "INV");
+let inv = id.slice(0, -2).replace("DEV", "INV");
 let inv2 = "images/invoice/"+ inv +".jpg";
 
 // Show ID in the header
