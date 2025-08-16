@@ -41,7 +41,7 @@ let inv = id.slice(0, -2).replace("DEV", "INV");
 let inv2 = "images/invoice/"+ inv +".jpg";
 
 // Show ID in the header
-document.getElementById('title').textContent = id.toUpperCase() + " - " + item.toUpperCase();
+document.getElementById('title').textContent = id.toUpperCase() + " -- " + item.toUpperCase();
 
 // Show INV value
 const linkElement = document.getElementById('invValue');
@@ -49,7 +49,7 @@ linkElement.href = inv2;
 linkElement.textContent = `( invoice : ${inv} )`;
 
 // Number of images to try loading
-const maxImages = 10;
+const maxImages = 16;
 const gallery = document.getElementById('gallery');
 
 // Loop through and add images
