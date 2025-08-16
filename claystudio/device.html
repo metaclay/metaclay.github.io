@@ -41,7 +41,7 @@ let inv = id.slice(0, -2).replace("DEV", "INV");
 let inv2 = "images/invoice/"+ inv +".jpg";
 
 // Show ID in the header
-document.getElementById('title').textContent = id.toUpperCase() + " -- " + item.toUpperCase();
+document.getElementById('title').textContent = id.toUpperCase() + ( item ? " -- " + item.toUpperCase() : "" );
 
 // Show INV value
 const linkElement = document.getElementById('invValue');
