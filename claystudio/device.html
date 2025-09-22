@@ -35,18 +35,24 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "test"; // default ID
 const path = params.get("path") || "/claystudio/images/device/"; // default path
 const item = params.get("item") 
+const name = params.get("name") 
+const noinv = params.get("noinv") 
 
 // Generate inv from id
 let inv = id.slice(0, -2).replace("DEV", "INV");
 let inv2 = "images/invoice/"+ inv +".jpg";
 
 // Show ID in the header
-document.getElementById('title').textContent = id.toUpperCase() + ( item ? " -- " + item.toUpperCase() : "" );
+document.getElementById('title').textContent = id.toUpperCase() + ( item ? " -- " + item.toUpperCase() : "" ) + ( name ? " -- " + name.toUpperCase() : "" ) ;
 
 // Show INV value
-const linkElement = document.getElementById('invValue');
-linkElement.href = inv2;
-linkElement.textContent = `( invoice : ${inv} )`;
+if (noinv === "1") {
+
+} else {
+  const linkElement = document.getElementById('invValue');
+  linkElement.href = inv2;
+  linkElement.textContent = `( invoice : ${inv} )`;
+}
 
 // Number of images to try loading
 const maxImages = 16;
