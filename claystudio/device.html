@@ -13,21 +13,29 @@
   }
   #gallery img {
     margin: 5px;
-    max-width: 90%;
-    height: auto;
+    max-height: 500px;
+    height: 100%; 
+    width: auto;
   }
 </style>
 </head>
 <body>
 
-<h2>CLAYSTUDIO</h2>
+<h2>CLAY SYSTEM</h2>
 <h3 id="title"></h3>
+<p>
+  <a id="detail" ></a>
+</p>
+
 <p>
   
   <a id="invValue" href="#" target="_blank"></a>
 </p>
 
 <div id="gallery"></div>
+<br><br>
+<h3 id="parts_title"></h3>
+<div id="gallery-parts"></div>
 
 <script>
 // Get URL parameters
@@ -37,20 +45,30 @@ const path = params.get("path") || "/claystudio/images/device/"; // default path
 const item = params.get("item") 
 const name = params.get("name") 
 const noinv = params.get("noinv") 
+const parts = params.get("parts") 
+const detail = params.get("detail") 
+const sn = params.get("sn") 
 
 // Generate inv from id
 let inv = id.slice(0, -2).replace("DEV", "INV");
 let inv2 = "images/invoice/"+ inv +".jpg";
 
 // Show ID in the header
-document.getElementById('title').textContent = id.toUpperCase() + ( item ? " -- " + item.toUpperCase() : "" ) + ( name ? " -- " + name.toUpperCase() : "" ) ;
+document.getElementById('title').textContent = id.toUpperCase() + ( item ? " -- " + item.toUpperCase() : "" ) + ( name ? " -- " + name.toUpperCase() : "" ) + ( sn ? " ( S/N: " + sn.toUpperCase() + " )" : "" );
 
 // Show INV value
-if (noinv === "1") {
+if (detail != null) {
+// document.getElementById('detail').textContent = detail;
+document.getElementById('detail').innerHTML = detail.replace(/\n/g, "<br>");
+}
 
-} else {
+
+// Show INV value
+if (noinv !== "1") {
+
   const linkElement = document.getElementById('invValue');
   linkElement.href = inv2;
+  linkElement.target = "_self";
   linkElement.textContent = `( invoice : ${inv} )`;
 }
 
@@ -66,6 +84,65 @@ for (let i = 1; i <= maxImages; i++) {
   img.onerror = () => img.remove(); // hide if missing
   gallery.appendChild(img);
 }
+
+if (parts != null ) {
+  document.getElementById('parts_title').textContent = "Device Parts";
+
+  // Split by "//"
+  const partsArray = parts.split("//");
+
+  // Target gallery-parts div
+  const partsDiv = document.getElementById('gallery-parts');
+
+  // Create table
+  const table = document.createElement('table');
+  table.style.margin = "0 auto"; // center table
+  table.style.borderCollapse = "collapse";
+
+  partsArray.forEach(p => {
+    const leftPart = p.split(" -- ")[0].trim();
+
+    // Create row
+    const row = document.createElement('tr');
+
+    // === Column 1: Image ===
+    const imgCell = document.createElement('td');
+    imgCell.style.textAlign = "right"; // right-justify image
+    const img = document.createElement('img');
+    img.src = path + leftPart + "_IMG01.jpg";
+    img.alt = leftPart;
+    img.style.maxHeight = "40px";  // constrain by height
+    img.style.height = "100%";     // ensure scaling by height
+    img.style.width = "auto";      // keep aspect ratio
+    img.onerror = () => img.remove(); // hide if missing
+    imgCell.appendChild(img);
+
+    // === Column 2: Link ===
+    const linkCell = document.createElement('td');
+    linkCell.style.textAlign = "left"; 
+    linkCell.style.verticalAlign = "middle";
+    linkCell.style.paddingLeft = "12px"; // add gap here
+    const el = document.createElement('a');
+    el.href = "/claystudio/device.html?id=" + leftPart + ( name ? "&name=" + name : "" );
+    el.textContent = p;
+    el.target = "_self";
+    linkCell.appendChild(el);
+
+    // Append cells to row
+    row.appendChild(imgCell);
+    row.appendChild(linkCell);
+
+    // Add row to table
+    table.appendChild(row);
+  });
+
+  // Add table to gallery-parts div
+  partsDiv.appendChild(table);
+}
+
+
+
+
 </script>
 
 </body>
