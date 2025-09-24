@@ -42,24 +42,27 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id") || "test"; // default ID
 const path = params.get("path") || "/claystudio/images/device/"; // default path
-const item = params.get("item") 
 const name = params.get("name") 
+//const name = params.get("name") 
 const noinv = params.get("noinv") 
 const parts = params.get("parts") 
 const detail = params.get("detail") 
 const sn = params.get("sn") 
+const type = params.get("type") 
+const cost = params.get("cost") 
 
 // Generate inv from id
 let inv = id.slice(0, -2).replace("DEV", "INV");
 let inv2 = "images/invoice/"+ inv +".jpg";
 
 // Show ID in the header
-document.getElementById('title').textContent = id.toUpperCase() + ( item ? " -- " + item.toUpperCase() : "" ) + ( name ? " -- " + name.toUpperCase() : "" ) + ( sn ? " ( S/N: " + sn.toUpperCase() + " )" : "" );
+document.getElementById('title').textContent = id.toUpperCase() +  ( name ? " -- " + name.toUpperCase() : "" ) + ( sn ? " ( S/N: " + sn.toUpperCase() + " )" : "" ) + ( type ? " -- " + type.toUpperCase()  : "" )  ;
 
 // Show INV value
 if (detail != null) {
 // document.getElementById('detail').textContent = detail;
-document.getElementById('detail').innerHTML = detail.replace(/\n/g, "<br>");
+let cost_formatted = Number(cost).toLocaleString('id-ID'); 
+document.getElementById('detail').innerHTML = detail.replace(/\n/g, "<br>") + ( cost ? ( detail ?  "<br><br>": "" )+"Cost: Rp " + cost_formatted : "" );
 }
 
 
@@ -100,7 +103,12 @@ if (parts != null ) {
   table.style.borderCollapse = "collapse";
 
   partsArray.forEach(p => {
-    const leftPart = p.split(" -- ")[0].trim();
+    const separator = " -- ";
+    const id_part = p.split(separator)[0].trim();
+    const name_part = p.split(separator)[1].trim();
+    //const cost_part = p.split(separator)[2].trim();
+    //const sn_part = p.split(separator)[3].trim();
+
 
     // Create row
     const row = document.createElement('tr');
@@ -109,8 +117,8 @@ if (parts != null ) {
     const imgCell = document.createElement('td');
     imgCell.style.textAlign = "right"; // right-justify image
     const img = document.createElement('img');
-    img.src = path + leftPart + "_IMG01.jpg";
-    img.alt = leftPart;
+    img.src = path + id_part + "_IMG01.jpg";
+    img.alt = id_part;
     img.style.maxHeight = "40px";  // constrain by height
     img.style.height = "100%";     // ensure scaling by height
     img.style.width = "auto";      // keep aspect ratio
@@ -123,7 +131,7 @@ if (parts != null ) {
     linkCell.style.verticalAlign = "middle";
     linkCell.style.paddingLeft = "12px"; // add gap here
     const el = document.createElement('a');
-    el.href = "/claystudio/device.html?id=" + leftPart + ( name ? "&name=" + name : "" );
+    el.href = "/claystudio/device.html?id=" + id_part +  "&name=" + name_part ;
     el.textContent = p;
     el.target = "_self";
     linkCell.appendChild(el);
