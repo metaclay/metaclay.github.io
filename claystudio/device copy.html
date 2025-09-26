@@ -17,10 +17,6 @@
     height: 100%; 
     width: auto;
   }
-    .center-vert td {
-      vertical-align: middle;
-      height: 60px;
-    }
 </style>
 </head>
 <body>
@@ -50,24 +46,17 @@ const name = params.get("name")
 //const name = params.get("name") 
 const noinv = params.get("noinv") 
 const parts = params.get("parts") 
-const parts_detail = params.get("parts_detail") 
 const detail = params.get("detail") 
 const sn = params.get("sn") 
 const type = params.get("type") 
 const cost = params.get("cost") 
-
-const separator_1 = "//";
-const separator_2 = "--";
-const separator_3 = "**";
-
-const show_header = 1;
 
 // Generate inv from id
 let inv = id.slice(0, -2).replace("DEV", "INV");
 let inv2 = "images/invoice/"+ inv +".jpg";
 
 // Show ID in the header
-document.getElementById('title').textContent =  id.toUpperCase() +  ( name ? " -- " + name.toUpperCase() : "" ) + ( sn ? " ( S/N: " + sn.toUpperCase() + " )" : "" ) + ( type ? " -- " + type.toUpperCase()  : "" )  ;
+document.getElementById('title').textContent = id.toUpperCase() +  ( name ? " -- " + name.toUpperCase() : "" ) + ( sn ? " ( S/N: " + sn.toUpperCase() + " )" : "" ) + ( type ? " -- " + type.toUpperCase()  : "" )  ;
 
 // Show INV value
 if (detail != null) {
@@ -103,19 +92,7 @@ if (parts != null ) {
   document.getElementById('parts_title').textContent = "Device Parts";
 
   // Split by "//"
-  //const parts = "satu -- ok // dua -- mantap // tiga -- cool";
-  const partsArray = parts.split(separator_1);
-  const parts_detailArray = parts_detail.split(separator_1);
-
-  let dict = {};
-  parts_detailArray.forEach(entry => {
-    let parts = entry.split(separator_2);
-    if (parts.length === 2) {
-      let [key, value] = parts;
-      dict[key.trim()] = value;
-    }
-  });
-
+  const partsArray = parts.split("//");
 
   // Target gallery-parts div
   const partsDiv = document.getElementById('gallery-parts');
@@ -126,64 +103,33 @@ if (parts != null ) {
   table.style.borderCollapse = "collapse";
 
 
-  if (show_header) {
-    // Header row
-    const row = document.createElement('tr');
-    const header1 = document.createElement('td');
-    header1.innerHTML = "Image<br>";
-    const header2 = document.createElement('td');
-    header2.innerHTML = "Device<br>";
-    const header3 = document.createElement('td');
-    header3.innerHTML = "S/N<br>";
-    const header4 = document.createElement('td');
-    header4.innerHTML = "Note<br>";
-    const header5 = document.createElement('td');
-    header5.innerHTML = "Cost<br>";
-    row.appendChild(header1);
-    row.appendChild(header2);
-    row.appendChild(header3);
-    row.appendChild(header4);
-    row.appendChild(header5);
-    row.style.borderBottom = "1px solid #ccc";
-    row.style.backgroundColor = "lightgray";
-    row.classList.add("center-vert");
-    table.appendChild(row);
-
-    const row2 = document.createElement('tr');
-    const header1b = document.createElement('td');
-    header1b.innerHTML = "<br>";
-    row2.appendChild(header1b);
-    table.appendChild(row2);
-
-  }
-
-
+  // // Header row
+  // const row = document.createElement('tr');
+  // const header1 = document.createElement('td');
+  // header1.innerHTML = "<h3>Image</h3><br>";
+  // const header2 = document.createElement('td');
+  // header2.innerHTML = "<h3>Device</h3><br>";
+  // const header3 = document.createElement('td');
+  // header3.innerHTML = "<h3>Cost</h3><br>";
+  // const header4 = document.createElement('td');
+  // header4.innerHTML = "<h3>Note</h3><br>";
+  // row.appendChild(header1);
+  // row.appendChild(header2);
+  // row.appendChild(header3);
+  // //row.appendChild(header4);
+  // table.appendChild(row);
 
 
 
   partsArray.forEach(p => {
-
-    const id_part = p.split(separator_2)[0].trim();
-    const name_part = p.split(separator_2)[1].trim();;
-    let cost_part ;
-    let sn_part ;
-    let notes_part ;
-
-
-
-
-    // Check if key exists
-    if (id_part in dict) {
-      cost_part = dict[id_part].split(separator_3)[0].trim();
-      sn_part = dict[id_part].split(separator_3)[1] ? dict[id_part].split(separator_3)[1].trim() : "" ;
-      notes_part = dict[id_part].split(separator_3)[2] ? dict[id_part].split(separator_3)[2].trim() : "" ;
-    }
-
-
-    // const name_part = info_part.split(separator_3)[0].trim();
-    // const cost_part = info_part.split(separator_3)[1].trim() ;
-    // const sn_part = info_part.split(separator_3)[2].trim() ;
-    // const notes_part = info_part.split(separator_3)[3].trim() ;
+    const separator = " -- ";
+    const separator2 = " ** ";
+    const id_part = p.split(separator)[0].trim();
+    const info_part = p.split(separator)[1];
+    const name_part = info_part.split(separator2)[0].trim();
+    const cost_part = info_part.split(separator2)[1].trim() ;
+    const sn_part = info_part.split(separator2)[2].trim() ;
+    const notes_part = info_part.split(separator2)[3].trim() ;
 
     // Create row
     const row = document.createElement('tr');
@@ -208,18 +154,18 @@ if (parts != null ) {
     const el = document.createElement('a');
     //let cost_clean = cost_part ? cost_part.replace(/[^0-9.-]+/g,"") : "";
     el.href = "/claystudio/device.html?id=" + id_part +  "&name=" + name_part + "&cost=" + cost_part  + "&detail=" + notes_part + "&sn=" + sn_part ;
-    el.textContent = p;
+    el.textContent = name_part ;
     el.target = "_self";
     linkCell.appendChild(el);
 
 
-   // // === Column 3: S/N ===
+   // // === Column 3: Notes ===
     const sn = document.createElement('td');  
     sn.style.textAlign = "left";
     sn.style.verticalAlign = "middle";
     sn.style.paddingLeft = "12px"; // add gap here
     sn.textContent = sn_part ? sn_part : "";
-    sn.style.width = "100px";
+    sn.style.minWidth = "60px";
 
 
     // // === Column 4: Notes ===
@@ -228,7 +174,7 @@ if (parts != null ) {
     notes.style.verticalAlign = "middle";
     notes.style.paddingLeft = "12px"; // add gap here
     notes.textContent = notes_part ? notes_part : "";
-    notes.style.width = "100px";
+    notes.style.minWidth = "60px";
 
 
     // === Column 5: Cost ===
@@ -236,8 +182,8 @@ if (parts != null ) {
     cost.style.textAlign = "right";
     cost.style.verticalAlign = "middle";
     cost.style.paddingLeft = "12px"; // add gap here
-    if (cost_part) {
-      let cost_value = cost_part.replace(/[^0-9.-]+/g,""); // extract numeric value
+    if (info_part.split(separator2)[1]) {
+      let cost_value = info_part.split(separator2)[1].replace(/[^0-9.-]+/g,""); // extract numeric value
       let cost_formatted = Number(cost_value).toLocaleString('id-ID'); 
       cost.textContent = "Rp " + cost_formatted ;
     } else {

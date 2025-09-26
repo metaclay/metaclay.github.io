@@ -17,10 +17,6 @@
     height: 100%; 
     width: auto;
   }
-    .center-vert td {
-      vertical-align: middle;
-      height: 60px;
-    }
 </style>
 </head>
 <body>
@@ -115,7 +111,10 @@ if (parts != null ) {
       dict[key.trim()] = value;
     }
   });
-
+console.log(parts_detail+"----");
+for (const fruit of parts_detailArray) {
+  console.log(fruit+"XXX");
+}
 
   // Target gallery-parts div
   const partsDiv = document.getElementById('gallery-parts');
@@ -130,23 +129,21 @@ if (parts != null ) {
     // Header row
     const row = document.createElement('tr');
     const header1 = document.createElement('td');
-    header1.innerHTML = "Image<br>";
+    header1.innerHTML = "Image<br><br>";
     const header2 = document.createElement('td');
-    header2.innerHTML = "Device<br>";
+    header2.innerHTML = "Device<br><br>";
     const header3 = document.createElement('td');
-    header3.innerHTML = "S/N<br>";
+    header3.innerHTML = "S/N<br><br>";
     const header4 = document.createElement('td');
-    header4.innerHTML = "Note<br>";
+    header4.innerHTML = "Note<br><br>";
     const header5 = document.createElement('td');
-    header5.innerHTML = "Cost<br>";
+    header5.innerHTML = "Cost<br><br>";
     row.appendChild(header1);
     row.appendChild(header2);
     row.appendChild(header3);
     row.appendChild(header4);
     row.appendChild(header5);
     row.style.borderBottom = "1px solid #ccc";
-    row.style.backgroundColor = "lightgray";
-    row.classList.add("center-vert");
     table.appendChild(row);
 
     const row2 = document.createElement('tr');
@@ -207,7 +204,7 @@ if (parts != null ) {
     linkCell.style.paddingLeft = "12px"; // add gap here
     const el = document.createElement('a');
     //let cost_clean = cost_part ? cost_part.replace(/[^0-9.-]+/g,"") : "";
-    el.href = "/claystudio/device.html?id=" + id_part +  "&name=" + name_part + "&cost=" + cost_part  + "&detail=" + notes_part + "&sn=" + sn_part ;
+    el.href = "/claystudio/device.html?id=" + id_part +  "&name=" + name_part //+ "&cost=" + cost_part  + "&detail=" + notes_part + "&sn=" + sn_part ;
     el.textContent = p;
     el.target = "_self";
     linkCell.appendChild(el);
